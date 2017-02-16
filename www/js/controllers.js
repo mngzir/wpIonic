@@ -110,9 +110,11 @@ angular.module('wpIonic.controllers', [])
       $scope.moreItems = true;
 
       $log.log(postsApi, response.data);
+            alert('ok');
 
     }, function(response) {
       $log.log(postsApi, response.data);
+            alert('no');
     });
 
   }
@@ -147,6 +149,7 @@ angular.module('wpIonic.controllers', [])
       }, function(response) {
         $scope.moreItems = false;
         $log.error(response);
+        alert('error');
       });
 
       $scope.$broadcast('scroll.infiniteScrollComplete');
