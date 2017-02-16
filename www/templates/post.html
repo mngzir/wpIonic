@@ -1,13 +1,16 @@
-<ion-view>
+<ion-view enable-menu-with-back-views="true">
 	<ion-nav-title>
-  {{::post.title.rendered}}
+  {{::post.title}}
 	</ion-nav-title>
   <ion-content class="padding">
   <ion-refresher on-refresh="doRefresh()"></ion-refresher>
   	<div class="card post">
   		<div class="item post-title">
-  		<h2 ng-bind-html="post.title.rendered"></h2>
+  		<h2 ng-bind-html="post.title"></h2>
   		</div>
+          <div class="item item-image">
+    <img src="{{ post.img }}">
+  </div>
   		<div class="item item-body" ng-if="content" ng-bind-html="content | html_filters"></div>
     
 
@@ -24,14 +27,14 @@
 
     </div>
 
-    <!--div class="item item-divider">Comments</div>
+    <div class="item item-divider">Comments</div>
       <ion-list ng-if="comments">
         <ion-item ng-repeat="comment in comments">
           <div class="item-body">
             <h3 ng-bind-html="comment.author_name"></h3>
-            <p ng-bind-html="comment.content.rendered"></p>
+            <p ng-bind-html="comment.content"></p>
           </div>
         </ion-item>
-      </ion-list-->
+      </ion-list>
   </ion-content>
 </ion-view>
