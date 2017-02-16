@@ -3,7 +3,7 @@ angular.module('wpIonic.controllers', [])
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $sce, DataLoader, $rootScope, $log ) {
   
   // Enter your site url here. You must have the WP-API v2 installed on this site. Leave /wp-json/wp/v2/ at the end.
-  $rootScope.url = 'http://www.androidesign.ir/wp-json/wp/v2/';
+  $rootScope.url = 'http://jar24.ir/app4/api.php';
 
   // $rootScope.callback = '_jsonp=JSON_CALLBACK';
 
@@ -19,7 +19,7 @@ angular.module('wpIonic.controllers', [])
 
   $scope.itemID = $stateParams.postId;
 
-  var singlePostApi = $rootScope.url + 'posts/' + $scope.itemID;
+  var singlePostApi = $rootScope.url + '?Method=getads&id=' + $scope.itemID;
 
   $scope.loadPost = function() {
 
@@ -36,7 +36,7 @@ angular.module('wpIonic.controllers', [])
       $log.debug($scope.post);
 
       // Don't strip post html
-      $scope.content = $sce.trustAsHtml(response.data.content.rendered);
+      $scope.content = $sce.trustAsHtml(response.data.desc);
 
       // $scope.comments = $scope.post._embedded['replies'][0];
 
@@ -59,7 +59,7 @@ angular.module('wpIonic.controllers', [])
   } else {
     // Item exists, use cached item
     $scope.post = postCache.get( $scope.itemID );
-    $scope.content = $sce.trustAsHtml( $scope.post.content.rendered );
+    $scope.content = $sce.trustAsHtml( $scope.post.desc );
     // $scope.comments = $scope.post._embedded['replies'][0];
   }
 
@@ -95,7 +95,8 @@ angular.module('wpIonic.controllers', [])
 
 .controller('PostsCtrl', function( $scope, $http, DataLoader, $timeout, $ionicSlideBoxDelegate, $rootScope, $log ) {
 
-  var postsApi = $rootScope.url + 'posts';
+  var postsApi = $rootScope.url + '?Method=lastads&page=1';
+  var postsApi2 = $rootScope.url + '?Method=lastads&page=';
 
   $scope.moreItems = false;
 
@@ -134,7 +135,7 @@ angular.module('wpIonic.controllers', [])
 
     $timeout(function() {
 
-      DataLoader.get( postsApi + '?page=' + pg ).then(function(response) {
+      DataLoader.get( postsApi2 +  pg ).then(function(response) {
 
         angular.forEach( response.data, function( value, key ) {
           $scope.posts.push(value);
